@@ -8,3 +8,9 @@
     <artifactId>fresh-java-project-2</artifactId>
     <version>1.0-SNAPSHOT</version>
 </project>
+
+<properties>
+  <sonar.projectKey>firstproject4392</sonar.projectKey>
+  <sonar.organization>samplerorganization</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+</properties>
