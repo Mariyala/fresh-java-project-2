@@ -1,0 +1,51 @@
+    pipeline {
+        agent any
+        environment{
+            ENVIRONMENT_NAME = 'DEV'
+            PASSWORD = credentials ('testuser')
+        }
+        tools{
+            maven 'mymaven'
+        }
+        parameters {
+            string(name: 'ENVIRONMENT_NAME', defaultValue: 'DEV', description: 'What this parameter is all about')
+            choice(name: 'RANK', choices: ['1', '2', '3', '4', '5'], description: 'This is a choice parameter')
+            booleanParam(name: 'executeTests', defaultValue: 'true', description: 'This will give you do you need tests or not')
+        }
+        stages {
+            stage('firststage') {
+                when {
+                    expression {
+                        params.executeTests == 'true'
+                    }
+                }
+                steps {
+                    echo "This is the first stage"
+                    echo "The environment name is ${params.ENVIRONMENT_NAME}"
+                }
+
+            }
+            stage('secondstage'){
+                steps{
+                    echo "This is the second stage"
+                }
+            }
+            stage('thirdstage'){
+                steps{
+                    echo "This is the third stage"
+                }
+            }
+
+        }
+        post{
+            always{
+                echo "do this everytime"
+            }
+            failure{
+                echo "do this if something fails"
+            }
+            success{
+                echo "do this if something gets successfull"
+            }
+        }
+    }
